@@ -6,7 +6,7 @@ console.log(driverId);
 
 var database = firebase.database();
 var refAccounts = database.ref('accounts');
-var refUsers = database.ref('auth/users')
+var refUsers = database.ref('auth/users');
 
 refAccounts.on('value', gotData, errData);
 function gotData(data) {
@@ -55,6 +55,6 @@ function changeId(userOfDriver) {
 function addToTable(username, userId) {
     console.log(username);
     console.log(userId);
-    $("#table_users_body").append("<tr><td><a href=\"#\" class=\"btn btn-primary\">" + username + "</a></tr></td>");
+    $("#table_users_body").append("<tr><td><a href=\"passenger.html?" + userId + "\" class=\"btn btn-primary\">" + username + "</a></tr></td>");
 
 }

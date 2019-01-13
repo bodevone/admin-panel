@@ -46,6 +46,7 @@ div#container {
     height: 100%;
     background-color: #171717;
     float: left;
+    display: inline-block;
 }
 
 ul#nav {
