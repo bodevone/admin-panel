@@ -34,17 +34,12 @@
 
         <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
         <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
-        <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
         <style>
             body { margin:0; padding:0; }
             #map {height: 100%; width: auto; }
         </style>
 
         <script src="scripts/jquery-3.3.1.min.js"></script>
-        <script src="scripts/script.js" type="text/javascript">
-
-
-        </script>
     </head>
 
     <body>
@@ -68,67 +63,8 @@
                 <!-- <h1>Карта</h1> -->
 
                 <div id='map'></div>
-                <script>
-                mapboxgl.accessToken = 'pk.eyJ1Ijoic2lnZW1peiIsImEiOiJjanFydWRpbGIwb3RxM3htdmRmMTVmdHhkIn0.zyq6Zode1A65qjir6wMLnw';
-                var map = new mapboxgl.Map({
-                    container: 'map', // container id
-                    style: 'mapbox://styles/mapbox/streets-v9',
-                    center: [71.41598, 51.1101], // starting position
-                    zoom: 12 // starting zoom
-                });
-
-                map.addControl(new mapboxgl.NavigationControl());
-
-                var config = {
-                    apiKey: "AIzaSyBkeK3tGZsylTsJTp8YDOTWYib2q9zsDdQ",
-                    authDomain: "gps-tracker-220118.firebaseapp.com",
-                    databaseURL: "https://gps-tracker-220118.firebaseio.com",
-                    projectId: "gps-tracker-220118",
-                    storageBucket: "gps-tracker-220118.appspot.com",
-                    messagingSenderId: "518213220283"
-                };
-
-                firebase.initializeApp(config);
-
-                var database = firebase.database();
-                var ref = database.ref('driver-locations');
-
-                ref.on('value', gotData, errData);
-
-                var markers = new Array();
-                for (var i = 0; i < 100; i++) {
-                    var marker = new mapboxgl.Marker();
-                    markers.push(marker);
-                }
-
-                function gotData(data) {
-                    var driver_locations = data.val();
-                    var it = 0;
-
-                    for(var i = 0; i < 100; i++) {
-                        markers[i].remove();
-                    }
-
-                    for (var key in driver_locations) {
-                        if (driver_locations.hasOwnProperty(key)) {
-                            var driver = driver_locations[key];
-                            markers[it] = new mapboxgl.Marker().setLngLat([driver.longitude, driver.latitude]).addTo(map);
-                            console.log(it)
-                            it++;
-                        }
-                    }
-                    //console.log(data.val());
-                }
-
-                function errData(err) {
-                    console.log('Error');
-                    console.log(err);
-                }
-
-                </script>
-
-
-
+                <script src="scripts/map.js"></script>
+                <button id="addPinButton" type="button" class="btn btn-primary">+</button>
             </div>
         </div>
     </body>

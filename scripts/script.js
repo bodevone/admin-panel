@@ -38,7 +38,7 @@ function idToUsername(driversId) {
 
 //Function to push data to table
 function dataToTable(driversToTable, driversId) {
-    $("#table_body").append("<tr><td><a href=\"driver.html?" + driversId + "\" class=\"btn btn-primary\">" + driversToTable + "</a></tr></td>");
+    $("#table_body").append("<tr><td><a href=\"driver.html?" + driversId + "\" class=\"btn btn-primary\" id=\"" + driversId + "\">" + driversToTable + "</a></tr></td>");
     console.log(driversId);
 }
 

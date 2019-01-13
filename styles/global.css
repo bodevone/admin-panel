@@ -117,3 +117,11 @@ div#box .box-panel {
     background-color: #fff;
     color: #333
 }
+
+#addPinButton {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 32px;
+    margin-bottom: 0px;
+}
