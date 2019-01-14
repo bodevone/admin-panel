@@ -78,20 +78,21 @@ function findDriverId(username) {
     query.once("value").then(function(snapshot) {
         var foundDriver = false;
         var driverId;
-        var driver;
+        var name;
         var pass;
         snapshot.forEach(function(childSnapshot) {
-            driver = childSnapshot.child('username').val();
-            pass =  childSnapshot.child('password').val();
+            var driver = childSnapshot.child('username').val();
             if (username == driver) {
                 foundDriver = true;
                 driverId = childSnapshot.key;
+                name =  driver;
+                pass =  childSnapshot.child('password').val();
             }
             // Cancel enumeration
         });
         if (foundDriver) {
             console.log(driverId);
-            deleteFromAuth(driverId, driver, pass);
+            deleteFromAuth(driverId, name, pass);
         } else {
             alert('Имя Пользователя Было Введено не Правильно');
         }
@@ -100,6 +101,7 @@ function findDriverId(username) {
 
 function deleteFromAuth(driverId, username, password) {
     console.log(username);
+    console.log(password);
     firebase.auth().signInWithEmailAndPassword(username, password).then(function() {
         var user = firebase.auth().currentUser;
 
@@ -127,7 +129,7 @@ function deleteFromAuth(driverId, username, password) {
 function deleteFromDatabase(driverId) {
     refAccounts.child(driverId).remove().then(function() {
         refDrivers.child(driverId).remove().then(function() {
-            //location.reload();
+            location.reload();
         }).catch(function(error) {
             console.log('Error');
         });
