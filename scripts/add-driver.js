@@ -94,8 +94,30 @@ function findDriverId(username) {
         if (foundDriver) {
             console.log(driverId);
             deleteFromAuth(driverId, name, pass);
+            //deleteDriverPinsAndLocations(driverId);
         } else {
             alert('Имя Пользователя Было Введено не Правильно');
+        }
+    });
+}
+
+function deleteDriverPinsAndLocations(driverId) {
+    var refPins = database.ref('driver-pins');
+    var refLocations = database.ref('driver-locations');
+
+    refPins.once('value').then(function(snapPin) {
+        if (snapPin.child(driverId).exists) {
+            snapPin.child(driverId).remove().then(function() {
+                console.log('Driver Pin Deleted');
+            });
+        }
+    });
+
+    refLocations.once('value').then(function(snapLoc) {
+        if (snapLoc.child(driverId).exists) {
+            snapLoc.child(driverId).remove().then(function() {
+                console.log('Driver Location Deleted');
+            });
         }
     });
 }
