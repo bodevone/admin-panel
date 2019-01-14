@@ -2,6 +2,12 @@ var userId = parent.document.URL.substring(parent.document.URL.indexOf('?'), par
 while(userId.charAt(0) === '?') {
     userId = userId.substr(1);
 }
+
+
+// var index = twoIds.indexOf("&");  // Gets the first index where a space occours
+// var userId = twoIds.substr(0, index); // Gets the first part
+// var driverId = twoIds.substr(index + 1);
+
 console.log(userId);
 
 var database = firebase.database();
