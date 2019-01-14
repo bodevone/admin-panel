@@ -1,8 +1,7 @@
 var database = firebase.database();
-var refDrivers = database.ref('auth/drivers');
+var refUsers = database.ref('auth/users');
 var refAccounts = database.ref('accounts');
 
-//Adding driver
 function openForm() {
     document.getElementById("myForm").style.display = "block";
 }
@@ -16,6 +15,8 @@ function addDriver() {
     var password = document.getElementById("password").value;
     console.log(username);
 
+    console.log(driverId);
+
     //Register a new user
     firebase.auth().createUserWithEmailAndPassword(username, password).then(function() {
         console.log("User Was Created");
@@ -26,7 +27,7 @@ function addDriver() {
                     var id = user.uid;
                     console.log(id);
 
-                    addDriverToDatabase(id, username, password);
+                    addUserToDatabase(id, username, password);
 
                     //Sign-out
                     firebase.auth().signOut().then(function() {
@@ -44,28 +45,14 @@ function addDriver() {
     });
 }
 
-function addDriverToDatabase(uid, user, psw) {
+function addUserToDatabase(uid, user, psw) {
     var data = {
         username: user,
         password: psw
     };
     refAccounts.child(uid).update(data);
 
-    refDrivers.child(uid).update({driver: uid});
+    refUsers.child(uid).update({driver: driverId});
 
     location.reload();
-}
-
-//Deleting driver
-function openDelete() {
-    document.getElementById("deleteForm").style.display = "block";
-}
-
-function closeDelete() {
-    document.getElementById("deleteForm").style.display = "none";
-}
-
-function deleteDriver () {
-    var username = document.getElementById("nameForDelete").value;
-    console.log(username);
 }

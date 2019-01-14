@@ -2,30 +2,24 @@ var database = firebase.database();
 var refDrivers = database.ref('auth/drivers');
 var refAccounts = database.ref('accounts');
 
-var idList = [];
-
-refDrivers.on('value', gotData, errData);
-function gotData(data) {
-    var drivers = data.val();
-    idToUsername(drivers);
-}
-
-function errData(err) {
-    console.log('Error');
-    console.log(err);
-}
+var query = refDrivers.orderByKey();
+query.once("value").then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+        var driver = childSnapshot.child('driver').val();
+        idToUsername(driver);
+        // Cancel enumeration
+    });
+});
 
 //Function to change users id to username
 function idToUsername(driversId) {
-    var driversUsernames = [];
     refAccounts.on('value', gotData, errData);
     function gotData(data) {
-        for (var i = 0; i < driversId.length; i++) {
-            if (data.child(driversId[i]).exists) {
-                var value = data.child(driversId[i]).child('username').val();
-                dataToTable(value, driversId[i]);
-            }
+        if (data.child(driversId).exists) {
+            var value = data.child(driversId).child('username').val();
+            dataToTable(value, driversId);
         }
+
     }
 
     function errData(err) {
@@ -40,10 +34,4 @@ function idToUsername(driversId) {
 function dataToTable(driversToTable, driversId) {
     $("#table_body").append("<tr><td><a href=\"driver.html?" + driversId + "\" class=\"btn btn-primary\">" + driversToTable + "</a></tr></td>");
     console.log(driversId);
-}
-
-
-
-function driverInfo(driver) {
-
 }

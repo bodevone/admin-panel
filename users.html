@@ -32,11 +32,11 @@
         messagingSenderId: "518213220283"
     };
     firebase.initializeApp(config);
-</script>
+    </script>
 
-<script src="scripts/jquery-3.3.1.min.js"></script>
-<script src="scripts/script.js" type="text/javascript"></script>
-<script src="scripts/add-driver.js" type="text/javascript"></script>
+    <script src="scripts/jquery-3.3.1.min.js"></script>
+    <script src="scripts/script.js" type="text/javascript"></script>
+    <script src="scripts/add-driver.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -71,26 +71,39 @@
                 </table>
             </div>
             <div id="add-button">
-                <button type="button" class="btn btn-success" onclick="openForm()">Add Driver</button>
+                <button type="button" class="btn btn-success" onclick="openForm()">Добавить Водителя</button>
             </div>
             <div id="delete-button">
-                <button type="button" class="btn btn-danger">Delete Driver</button>
+                <button type="button" class="btn btn-danger" onclick="openDelete()">Удалить Водителя</button>
             </div>
 
         </div>
 
         <div class="form-popup" id="myForm">
             <form action="javascript:;" onsubmit="addDriver()" class="form-container">
-                <h1>Login</h1>
+                <h1>Создание Водителя</h1>
 
-                <label for="email"><b>Email</b></label>
-                <input type="text" placeholder="Enter Email" name="email" id="username" required>
+                <label for="email"><b>Имя Пользователя</b></label>
+                <input type="text" placeholder="Введите Имя Пользователя" name="email" id="username" required>
 
-                <label for="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" id="password" required>
+                <label for="psw"><b>Пароль</b></label>
+                <input type="password" placeholder="Введите Пароль" name="psw" id="password" required>
 
-                <button type="submit" class="btn">Login</button>
-                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                <button type="submit" class="btn">Создать</button>
+                <button type="button" class="btn cancel" onclick="closeForm()">Закрыть</button>
+            </form>
+        </div>
+
+
+        <div class="form-popup" id="deleteForm">
+            <form action="javascript:;" onsubmit="deleteDriver()" class="form-container">
+                <h1>Удаление Водителя</h1>
+
+                <label for="email"><b>Имя Пользователя</b></label>
+                <input type="text" placeholder="Введите Имя Пользователя" name="email" id="nameForDelete" required>
+
+                <button type="submit" class="btn">Удалить</button>
+                <button type="button" class="btn cancel" onclick="closeDelete()">Закрыть</button>
             </form>
         </div>
 
