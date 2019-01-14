@@ -21,20 +21,20 @@ function addDriver() {
         console.log("User Was Created");
         // Sign in existing user
         firebase.auth().signInWithEmailAndPassword(username, password).then(function() {
-                    console.log("User was Singed In");
-                    var user = firebase.auth().currentUser;
-                    var id = user.uid;
-                    console.log(id);
+            console.log("User was Singed In");
+            var user = firebase.auth().currentUser;
+            var id = user.uid;
+            console.log(id);
 
-                    addDriverToDatabase(id, username, password);
+            addDriverToDatabase(id, username, password);
 
-                    //Sign-out
-                    firebase.auth().signOut().then(function() {
-                        // Sign-out successful.
-                        console.log('Sign out successful');
-                    }).catch(function(error) {
-                        // An error happened.
-                    });
+            //Sign-out
+            firebase.auth().signOut().then(function() {
+                // Sign-out successful.
+                console.log('Sign out successful');
+            }).catch(function(error) {
+                // An error happened.
+            });
         }).catch(function(err) {
             console.log('error');
         });
@@ -68,4 +68,70 @@ function closeDelete() {
 function deleteDriver () {
     var username = document.getElementById("nameForDelete").value;
     console.log(username);
+
+    findDriverId(username);
+}
+
+function findDriverId(username) {
+
+    var query = refAccounts.orderByKey();
+    query.once("value").then(function(snapshot) {
+        var foundDriver = false;
+        var driverId;
+        var driver;
+        var pass;
+        snapshot.forEach(function(childSnapshot) {
+            driver = childSnapshot.child('username').val();
+            pass =  childSnapshot.child('password').val();
+            if (username == driver) {
+                foundDriver = true;
+                driverId = childSnapshot.key;
+            }
+            // Cancel enumeration
+        });
+        if (foundDriver) {
+            console.log(driverId);
+            deleteFromAuth(driverId, driver, pass);
+        } else {
+            alert('Имя Пользователя Было Введено не Правильно');
+        }
+    });
+}
+
+function deleteFromAuth(driverId, username, password) {
+    console.log(username);
+    firebase.auth().signInWithEmailAndPassword(username, password).then(function() {
+        var user = firebase.auth().currentUser;
+
+        //Sign-out
+        firebase.auth().signOut().then(function() {
+            // Sign-out successful.
+            console.log('Sign out successful');
+
+            user.delete().then(function() {
+                console.log('User Deleted');
+                deleteFromDatabase(driverId)
+            }).catch(function(error) {
+                // An error happened.
+                console.log('Error');
+            });
+        }).catch(function(error) {
+            // An error happened.
+        });
+
+    }).catch(function(error) {
+        console.log('Error');
+    });
+}
+
+function deleteFromDatabase(driverId) {
+    refAccounts.child(driverId).remove().then(function() {
+        refDrivers.child(driverId).remove().then(function() {
+            //location.reload();
+        }).catch(function(error) {
+            console.log('Error');
+        });
+    }).catch(function(error) {
+        console.log('Error');
+    });
 }
