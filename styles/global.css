@@ -125,3 +125,10 @@ div#box .box-panel {
     margin: 32px;
     margin-bottom: 0px;
 }
+
+#driversAddPinList {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}

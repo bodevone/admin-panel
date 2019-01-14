@@ -3,10 +3,10 @@ var map = new mapboxgl.Map({
     container: 'map', // container id
     style: 'mapbox://styles/mapbox/streets-v9',
     center: [71.41598, 51.1101], // starting position
-    zoom: 12 // starting zoom
+    zoom: 11 // starting zoom
 });
 
-map.addControl(new mapboxgl.NavigationControl());
+map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 
 var database = firebase.database();
 var ref = database.ref('driver-locations');
@@ -30,7 +30,9 @@ function gotData(data) {
     for (var key in driver_locations) {
         if (driver_locations.hasOwnProperty(key)) {
             var driver = driver_locations[key];
-            markers[it] = new mapboxgl.Marker().setLngLat([driver.longitude, driver.latitude]).addTo(map);
+            var popup = new mapboxgl.Popup({ offset: 25 })
+              .setText('DRIVER');
+            markers[it] = new mapboxgl.Marker().setLngLat([driver.longitude, driver.latitude]).setPopup(popup).addTo(map);
             it++;
         }
     }
@@ -41,3 +43,10 @@ function errData(err) {
     console.log(err);
 }
 
+function openPinForm() {
+  document.getElementById("driversAddPinList").style.display = "block";
+}
+
+function closePinForm() {
+  document.getElementById("driversAddPinList").style.display = "none";
+}
