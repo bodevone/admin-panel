@@ -40,7 +40,7 @@
         </style>
 
         <script src="scripts/jquery-3.3.1.min.js"></script>
-        <script src="scripts/script.js" type="text/javascript">
+        <script src="scripts/add-pin.js">
 
 
         </script>
@@ -67,6 +67,26 @@
                 <!-- <h1>Карта</h1> -->
 
                 <div id='map'></div>
+                
+                <script src="scripts/map.js"></script>
+                <button id="addPinButton" type="button" class="btn btn-primary" onclick="openPinForm()">+</button>
+
+                <div id="driversAddPinList" class="content">
+                    <h1>Пользователи</h1>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Водители</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="addPinTable">
+                                </tbody>
+                            </table>
+                        </div>
+                    <button type="button" class="btn btn-danger" onclick="closePinForm()">Close</button>
+                </div>
+
                 <script>
                 mapboxgl.accessToken = 'pk.eyJ1Ijoic2lnZW1peiIsImEiOiJjanFydWRpbGIwb3RxM3htdmRmMTVmdHhkIn0.zyq6Zode1A65qjir6wMLnw';
                 var map = new mapboxgl.Map({
@@ -114,9 +134,6 @@
                 }
 
                 </script>
-
-
-
             </div>
         </div>
     </body>

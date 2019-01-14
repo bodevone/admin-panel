@@ -165,3 +165,18 @@ table {
 .form-container .btn:hover, .open-button:hover {
     opacity: 1;
 }
+
+#addPinButton {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 32px;
+    margin-bottom: 0px;
+}
+
+#driversAddPinList {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
