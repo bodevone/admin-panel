@@ -38,18 +38,12 @@ query.once("value").then(function(snapshot) {
 });
 
 function changeId(userOfDriver) {
-    refAccounts.on('value', gotData, errData);
-    function gotData(data) {
-        if (data.child(userOfDriver).exists) {
-            var username = data.child(userOfDriver).child('username').val();
+    refAccounts.once('value').then(function(snapshot) {
+        if (snapshot.child(userOfDriver).exists) {
+            var username = snapshot.child(userOfDriver).child('username').val();
             addToTable(username, userOfDriver);
         }
-    }
-
-    function errData(err) {
-        console.log('Error');
-        console.log(err);
-    }
+    });
 }
 
 function addToTable(username, userId) {

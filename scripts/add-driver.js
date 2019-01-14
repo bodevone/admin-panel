@@ -1,5 +1,6 @@
 var database = firebase.database();
 var refDrivers = database.ref('auth/drivers');
+var refUsers = database.ref('auth/users');
 var refAccounts = database.ref('accounts');
 
 //Adding driver
@@ -129,11 +130,72 @@ function deleteFromAuth(driverId, username, password) {
 function deleteFromDatabase(driverId) {
     refAccounts.child(driverId).remove().then(function() {
         refDrivers.child(driverId).remove().then(function() {
-            location.reload();
+            deleteUserOfDriver(driverId);
         }).catch(function(error) {
             console.log('Error');
         });
     }).catch(function(error) {
         console.log('Error');
+    });
+}
+
+function deleteUserOfDriver(driverId) {
+    var query = refUsers.orderByKey();
+    query.once("value").then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+            var driver = childSnapshot.child('driver').val();
+            if (driverId == driver) {
+                var userId = childSnapshot.key;
+                refUsers.child(userId).remove().then(function() {
+                    console.log('User WAs Delted From Users');
+                    deleteUserOfDriverFromAuth(userId);
+                }).catch(function(error) {
+                    console.log('Error');
+                });
+                // Cancel enumeration
+            }
+        });
+    });
+}
+
+function deleteUserOfDriverFromAuth(userId) {
+    refAccounts.once('value').then(function(snapshot) {
+        var username = snapshot.child(userId).child('username').val();
+        var password = snapshot.child(userId).child('password').val();
+
+        console.log('In deleting from auth user Process');
+        console.log(username);
+        console.log(password);
+
+        firebase.auth().signInWithEmailAndPassword(username, password).then(function() {
+            var user = firebase.auth().currentUser;
+
+            //Sign-out
+            firebase.auth().signOut().then(function() {
+                // Sign-out successful.
+                console.log('Sign out successful');
+
+                user.delete().then(function() {
+                    console.log('User Deleted');
+
+                    refAccounts.child(userId).remove().then(function() {
+                        console.log('User of Driver deleted in Database');
+                        location.reload();
+
+                    }).catch(function(error) {
+                        console.log('Error');
+                    });
+
+                }).catch(function(error) {
+                    // An error happened.
+                    console.log('Error');
+                });
+            }).catch(function(error) {
+                // An error happened.
+            });
+
+        }).catch(function(error) {
+            console.log('Error');
+        });
     });
 }
