@@ -93,13 +93,13 @@
                 <button type="button" class="btn btn-success" onclick="openForm()">Добавить Пассажира</button>
             </div>
             <div id="delete-button">
-                <button type="button" class="btn btn-danger">Удалить Пассажира</button>
+                <button type="button" class="btn btn-danger" onclick="openDelete()">Удалить Пассажира</button>
             </div>
 
         </div>
 
         <div class="form-popup" id="myForm">
-            <form action="javascript:;" onsubmit="addDriver()" class="form-container">
+            <form action="javascript:;" onsubmit="addUser()" class="form-container">
                 <h1>Создание Пассажира</h1>
 
                 <label for="email"><b>Имя Пользователя</b></label>
@@ -110,6 +110,19 @@
 
                 <button type="submit" class="btn">Создать</button>
                 <button type="button" class="btn cancel" onclick="closeForm()">Закрыть</button>
+            </form>
+        </div>
+
+
+        <div class="form-popup" id="deleteForm">
+            <form action="javascript:;" onsubmit="deleteUser()" class="form-container">
+                <h1>Удаление Водителя</h1>
+
+                <label for="email"><b>Имя Пользователя</b></label>
+                <input type="text" placeholder="Введите Имя Пользователя" name="email" id="nameForDelete" required>
+
+                <button type="submit" class="btn">Удалить</button>
+                <button type="button" class="btn cancel" onclick="closeDelete()">Закрыть</button>
             </form>
         </div>
 
