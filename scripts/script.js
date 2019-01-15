@@ -19,7 +19,6 @@ function idToUsername(driversId) {
             var value = data.child(driversId).child('username').val();
             dataToTable(value, driversId);
         }
-
     }
 
     function errData(err) {
