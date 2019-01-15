@@ -14,7 +14,7 @@ query.once("value").then(function(snapshot) {
 //Function to change users id to username
 function idToUsername(driversId) {
     refAccounts.once('value').then(function(snapshot) {
-        if (snapshot.child(driversId).exists) {
+        if (snapshot.hasChild(driversId)) {
             var value = snapshot.child(driversId).child('username').val();
             dataToTable(value, driversId);
         }

@@ -7,6 +7,7 @@ console.log(driverId);
 var database = firebase.database();
 var refAccounts = database.ref('accounts');
 var refUsers = database.ref('auth/users');
+var refDriverLocations = database.ref('driver-locations');
 
 refAccounts.on('value', gotData, errData);
 function gotData(data) {
@@ -21,9 +22,20 @@ function errData(err) {
 }
 
 function infoToTable(username, password) {
-    document.getElementById("name").innerHTML = username;
-    document.getElementById("pass").innerHTML = password;
-    document.getElementById("id").innerHTML = driverId;
+    refDriverLocations.once("value").then(function(snapshot) {
+        var lastOnline;
+        if (snapshot.hasChild(driverId)) {
+            lastOnline = snapshot.child(driverId).child('timestamp').val();
+        } else {
+            lastOnline = 'Водитель еще не заходил';
+        }
+
+        document.getElementById("name").innerHTML = username;
+        document.getElementById("pass").innerHTML = password;
+        document.getElementById("id").innerHTML = driverId;
+        document.getElementById("online").innerHTML = lastOnline;
+
+    });
 }
 
 var query = refUsers.orderByKey();
