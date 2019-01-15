@@ -13,12 +13,12 @@ query.once("value").then(function(snapshot) {
 
 //Function to change users id to username
 function idToUsername(driversId) {
-    refAccounts.on('value', gotData, errData);
-    function gotData(data) {
-        if (data.child(driversId).exists) {
-            var value = data.child(driversId).child('username').val();
+    refAccounts.once('value').then(function(snapshot) {
+        if (snapshot.hasChild(driversId)) {
+            var value = snapshot.child(driversId).child('username').val();
             dataToTable(value, driversId);
         }
+<<<<<<< HEAD
     }
 
     function errData(err) {
@@ -27,7 +27,6 @@ function idToUsername(driversId) {
     }
     // console.log(driversUsernames);
     // return driversUsernames;
-}
 
 //Function to push data to table
 function dataToTable(driversToTable, driversId) {
