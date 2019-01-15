@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="r">
+<html>
+<head>
+    <title>
+        Login
+    </title>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" type="text/css" href="styles/login.css">
+
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/login.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
+
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyBkeK3tGZsylTsJTp8YDOTWYib2q9zsDdQ",
+        authDomain: "gps-tracker-220118.firebaseapp.com",
+        databaseURL: "https://gps-tracker-220118.firebaseio.com",
+        projectId: "gps-tracker-220118",
+        storageBucket: "gps-tracker-220118.appspot.com",
+        messagingSenderId: "518213220283"
+    };
+    firebase.initializeApp(config);
+    </script>
+
+</head>
+
+<body id="LoginForm">
+    <div class="container">
+        <h1 class="form-heading">Grand Alem</h1>
+        <div class="login-form">
+            <div class="main-div">
+                <div class="panel">
+                    <h2>Вход для Админа</h2>
+                    <p>Введите имя пользователя и пароль</p>
+                </div>
+                <form action="javascript:;" onsubmit="enterAdmin()" class="form-container" id="Login">
+
+                    <div class="form-group">
+
+
+                        <input type="email" class="form-control" id="inputUsername" placeholder="Имя пользователя">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <input type="password" class="form-control" id="inputPassword" placeholder="Пароль">
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Войти</button>
+
+                </form>
+            </div>
+            <p class="botto-text">Разработаано для GrandAlem</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
