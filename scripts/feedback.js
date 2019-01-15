@@ -7,11 +7,19 @@ query.once('value').then(function (snapshot) {
         var username = childSnapshot.child('username').val();
         var name = childSnapshot.child('name').val();
         var text = childSnapshot.child('feedback').val();
+        var key = childSnapshot.key;
 
-        addToTable(username, name, text);
+        addToTable(username, name, text, key);
     });
 });
 
-function addToTable(username, name, feedback) {
-    $("#table_body").append("<tr class=\"table-info\"><td>" + username + "</td><td>" + name + "</td><td>" + feedback + "</td></tr>");
+function addToTable(username, name, feedback, key) {
+    $("#table_body").append("<tr class=\"table-info\"><td>" + username +
+    "</td><td>" + name + "</td><td>" + feedback +
+    "</td><td><button type=\"button\" class=\"btn btn-danger\" onclick=deleteFeedback(\""+ key + "\")> Удалить </button></td></tr>");
+}
+
+function deleteFeedback(key) {
+    refFeedbacks.child(key).remove();
+    location.reload();
 }
