@@ -181,3 +181,14 @@ table {
     bottom: 0;
     right: 0;
 }
+
+#addDriverPinButton {
+    margin-left: 16px;
+    /* margin-right: 16px; */
+}
+
+#removeDriverPinButton {
+    margin-left: 16px;
+    padding-left: 14px;
+    padding-right: 14px;
+}
