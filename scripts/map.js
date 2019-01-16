@@ -30,12 +30,21 @@ function gotData(data) {
     for (var key in driver_locations) {
         if (driver_locations.hasOwnProperty(key)) {
             var driver = driver_locations[key];
-            var popup = new mapboxgl.Popup({ offset: 25 })
-              .setText('DRIVER');
-            markers[it] = new mapboxgl.Marker().setLngLat([driver.longitude, driver.latitude]).setPopup(popup).addTo(map);
+            addDriverToMap(key, driver, it);
             it++;
         }
     }
+}
+
+function addDriverToMap(key, driver, it) {   
+    database.ref('accounts').once('value').then(function(snapshot) {
+        if (snapshot.hasChild(key)) {
+            var name = snapshot.child(key).child('username').val();
+            var popup = new mapboxgl.Popup({ offset: 25 })
+              .setText(name);
+            markers[it] = new mapboxgl.Marker().setLngLat([driver.longitude, driver.latitude]).setPopup(popup).addTo(map);
+        }
+    }); 
 }
 
 function errData(err) {

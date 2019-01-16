@@ -18,13 +18,10 @@ function idToUsername(driversId) {
             var value = snapshot.child(driversId).child('username').val();
             dataToTable(value, driversId);
         }
-<<<<<<< HEAD
-    }
+    });
+}
 
-    function errData(err) {
-        console.log('Error');
-        console.log(err);
-    }
+
     // console.log(driversUsernames);
     // return driversUsernames;
 
