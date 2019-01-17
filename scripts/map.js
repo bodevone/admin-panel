@@ -36,15 +36,20 @@ function gotData(data) {
     }
 }
 
-function addDriverToMap(key, driver, it) {   
+function addDriverToMap(key, driver, it) {
     database.ref('accounts').once('value').then(function(snapshot) {
         if (snapshot.hasChild(key)) {
             var name = snapshot.child(key).child('username').val();
-            var popup = new mapboxgl.Popup({ offset: 25 })
-              .setText(name);
-            markers[it] = new mapboxgl.Marker().setLngLat([driver.longitude, driver.latitude]).setPopup(popup).addTo(map);
+            var popup = new mapboxgl.Popup({ offset: 25 }).setText(name);
+            //markers[it] = new mapboxgl.Marker().setLngLat([driver.longitude, driver.latitude]).setPopup(popup).addTo(map);
+
+            var el = document.createElement('div');
+            el.className = 'marker';
+            // add marker to map
+            markers[it] = new mapboxgl.Marker(el)
+            .setLngLat([driver.longitude, driver.latitude]).setPopup(popup).addTo(map);
         }
-    }); 
+    });
 }
 
 function errData(err) {
@@ -53,9 +58,9 @@ function errData(err) {
 }
 
 function openPinForm() {
-  document.getElementById("driversAddPinList").style.display = "block";
+    document.getElementById("driversAddPinList").style.display = "block";
 }
 
 function closePinForm() {
-  document.getElementById("driversAddPinList").style.display = "none";
+    document.getElementById("driversAddPinList").style.display = "none";
 }
