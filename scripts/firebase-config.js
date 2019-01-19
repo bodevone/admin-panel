@@ -1,10 +1,10 @@
 // Initialize Firebase
 var config = {
-    apiKey: "AIzaSyBkeK3tGZsylTsJTp8YDOTWYib2q9zsDdQ",
-    authDomain: "gps-tracker-220118.firebaseapp.com",
-    databaseURL: "https://gps-tracker-220118.firebaseio.com",
-    projectId: "gps-tracker-220118",
-    storageBucket: "gps-tracker-220118.appspot.com",
-    messagingSenderId: "518213220283"
-};
+   apiKey: "<API_KEY>",
+   authDomain: "<PROJECT_ID>.firebaseapp.com",
+   databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
+   projectId: "<PROJECT_ID>",
+   storageBucket: "<BUCKET>.appspot.com",
+   messagingSenderId: "<SENDER_ID>",
+ };
 firebase.initializeApp(config);
